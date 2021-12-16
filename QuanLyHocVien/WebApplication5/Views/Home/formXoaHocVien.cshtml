@@ -1,0 +1,107 @@
+﻿@model WebApplication5.Models.lylich
+@{
+    Layout = null;
+    bool Cothexoa = ViewBag.Cothexoa;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thông báo xóa Học viên</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h3>Thông tin học viên</h3>
+        <p>
+            <a class="btn btn-outline-primary" href="@Url.Content("/Home/Index")">Trở về</a>
+        </p>
+        @if (Model == null)
+        {
+            <p class="font-weight-bolder">Không có thông tin học viên</p>
+        }
+        else
+        {
+            if (!Cothexoa)
+            {
+                <p class="font-weight-bolder">Không thể xóa HV này!!</p>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">Mã số học viên:</div>
+                    <div class="col-md-4">
+                        @Model.mshv
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">Tên học viên:</div>
+                    <div class="col-md-4">
+                        @Model.tenhv
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">Ngày sinh:</div>
+                    <div class="col-md-4">
+                        @Model.ngaysinh.Value.ToShortDateString()
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">Phái:</div>
+                    <div class="col-md-4">
+                        @{ string strPhai = Model.phai.Value ? "Nam" : "Nữ";}
+                        @strPhai
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">Mã lớp:</div>
+                    <div class="col-md-4">
+                        @Model.malop
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 font-weight-bold">Tên lớp:</div>
+                    <div class="col-md-4">
+                        @Model.lop.tenlop
+                    </div>
+                </div>
+                <table class="table table-striped table-hover text-center">
+                    <thead>
+                    <th>Mã môn học</th>
+                    <th>Tên môn học</th>
+                    <th>Số tiết</th>
+                    <th>Điểm thi</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.diemthis)
+                        {
+                            <tr>
+                                <td>@item.msmh</td>
+                                <td>@item.monhoc.tenmh</td>
+                                <td>@item.monhoc.sotiet</td>
+                                <td>@item.diem</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <label>Bạn có thật sự muốn xóa hay không?</label>
+                <p>
+                    <a class="btn btn-danger" href="@Url.Content("/Home/xoaHocvien/"+Model.mshv)">Xóa học viên</a>
+                </p>
+            }
+        }
+    </div>
+</body>
+</html>

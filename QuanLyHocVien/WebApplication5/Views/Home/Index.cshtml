@@ -1,0 +1,63 @@
+﻿@model  IEnumerable <WebApplication5.Models.lylich>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align:center;">DANH SÁCH HỌC VIÊN</h1>
+        <p>
+            <a class="btn btn-info" href="@Url.Content("/Home/formThemHocVien")">Thêm học viên</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã số học viên</th>
+                    <th>Tên học viên</th>
+                    <th>Ngày sinh</th>
+                    <th>Phái</th>
+                    <th>Mã lớp</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    string strPhai = item.phai.Value ? "Nam" : "Nu";
+                <tr>
+                    <td>@item.mshv</td>
+                    <td>@item.tenhv</td>
+                    <td>@item.ngaysinh.Value.ToShortDateString()</td>
+                    <td>@strPhai</td>
+                    <td>@item.malop</td>
+                    <td>
+                        <a href="@Url.Content("/Home/formSuaHocVien/"+item.mshv)">Sửa |</a>
+                        <a href="@Url.Content("/Home/formXoaHocVien/"+item.mshv)">Xóa |</a>
+                        <a href="@Url.Content("/Home/xemChitiethocvien/"+item.mshv)">Chi tiết</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</body>
+</html>

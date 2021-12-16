@@ -1,0 +1,101 @@
+﻿@model WebApplication5.Models.lylich
+@{
+    Layout = null;
+    List<WebApplication5.Models.lop> dsLop = ViewBag.DSLop as List<WebApplication5.Models.lop>;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sửa HỌC VIÊN</title>
+</head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<body>
+    <div class="container">
+        <h1>Form Sửa Thông Tin Học Viên</h1>
+        <p>
+            <a class="btn btn-info" href="@Url.Content("/Home/Index")">Trở về</a>
+        </p>
+        <form action="@Url.Content("/Home/SuaHocVien")" method="post">
+            <div class="form-group">
+                <label for="mshv">Mã số học viên</label>
+                <input type="text" class="form-control" name="mshv" value="@Model.mshv" readonly />
+            </div>
+            <div class="form-group">
+                <label for="tenhv">Tên học viên</label>
+                <input type="text" class="form-control" name="tenhv" value="@Model.tenhv" />
+            </div>
+            <div class="form-group">
+                <label for="ngaysinh">Ngày sinh</label>
+                <input type="date" class="form-control" name="ngaysinh" value="@Model.ngaysinh.Value.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label for="phai">Giới tính</label><br />
+                @if (Model.phai.Value == true)
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="phai" value="true" checked="checked" />
+                            Nam
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="phai" value="false" />
+                            Nữ
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="phai" value="true" />
+                            Nam
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="phai" value="false" checked="checked" />
+                            Nữ
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label for="malop">Mã lớp</label>
+                <select name="malop" class="form-group">
+                    @foreach (var item in dsLop)
+                    {
+                        if (Model.malop == item.malop)
+                        {
+                            <option selected="selected">
+                                @item.malop
+                            </option>
+                        }
+                        else
+                        {
+                            <option>
+                                @item.malop
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            <p><input class="btn btn-info" type="submit" value="Sửa Học Viên" /></p>
+        </form>
+    </div>
+</body>
+</html>

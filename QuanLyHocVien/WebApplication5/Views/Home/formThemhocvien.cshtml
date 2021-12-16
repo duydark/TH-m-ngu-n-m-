@@ -1,0 +1,77 @@
+﻿@model WebApplication5.Models.lylich
+@{
+    Layout = null;
+    List<WebApplication5.Models.lop> dsLop = ViewBag.DSLop as List<WebApplication5.Models.lop>;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>THÊM HỌC VIÊN</title>
+</head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<body>
+    <div class="container">
+        <h1 style="text-align:center; border:5px solid #000000">Form Thêm Thông Tin Học Viên</h1>
+        <p>
+            <a class="btn btn-info" href="@Url.Content("/Home/Index")">Trở về</a>
+        </p>
+        <form action="@Url.Content("/Home/themHocVien")" method="post">
+            <div class="form-group">
+                <label for="mshv">[MÃ SỐ HỌC VIÊN]</label>
+                <input type="text" class="form-control" name="mshv" />
+            </div>
+            <div class="form-group">
+                <label for="tenhv">[TÊN HỌC VIÊN]</label>
+                <input type="text" class="form-control" name="tenhv" />
+            </div>
+            <div class="form-group">
+                <label for="ngaysinh">[NGÀY SINH]</label>
+                <input type="date" class="form-control" name="ngaysinh" />
+            </div>
+            <div class="form-group">
+                <label for="phai">[PHÁI]</label>
+                </br>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="phai" value="true" />
+                        Nam
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="phai" value="false" checked="checked" />
+                        Nu
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="malop">[MÃ LỚP]</label>
+                <select name="malop" class="form-control">
+                    @foreach (var item in dsLop)
+                    {
+                        <option>
+                            @item.malop
+                        </option>
+                    }
+                </select>
+            </div>
+            <p>
+                <input class="btn btn-success" type="submit" value="Thêm Học Viên" />
+            </p>
+        </form>
+    </div>
+</body>
+</html>
